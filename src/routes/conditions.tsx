@@ -1,8 +1,5 @@
 import { createFileRoute, Link } from '@tanstack/react-router'
-import {
-  ConditionCard,
-  ConditionPhotoCard,
-} from '../components/ui/ConditionCard'
+import { ConditionPhotoCard } from '../components/ui/ConditionCard'
 import { SectionHeading } from '../components/ui/SectionHeading'
 import {
   GUT_CONDITIONS,
@@ -31,10 +28,11 @@ function Conditions() {
         />
         <div className="mt-10 grid grid-cols-2 gap-5 sm:grid-cols-4">
           {MUSCULOSKELETAL_CONDITIONS.map((item) => (
-            <ConditionCard
+            <ConditionPhotoCard
               key={item.title}
-              icon={item.icon}
+              image={item.image}
               title={item.title}
+              description={item.description}
             />
           ))}
         </div>

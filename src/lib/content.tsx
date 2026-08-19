@@ -1,18 +1,11 @@
 import {
-  ArthritisIcon,
   CounsellingIcon,
   HolisticIcon,
   IntestineIcon,
-  KneeIcon,
   LiverIcon,
   PersonIcon,
   PrakritiIcon,
   RootCauseIcon,
-  RunningIcon,
-  SciaticaIcon,
-  ShoulderIcon,
-  SlipDiscIcon,
-  SpineIcon,
   StomachIcon,
   SustainableIcon,
   TreatmentPlanIcon,
@@ -112,14 +105,46 @@ export const SERVICES: Service[] = [
 ]
 
 export const MUSCULOSKELETAL_CONDITIONS = [
-  { icon: <SpineIcon />, title: 'Cervical Spondylosis' },
-  { icon: <SpineIcon />, title: 'Lower Back Pain' },
-  { icon: <KneeIcon />, title: 'Knee Pain / Osteoarthritis' },
-  { icon: <ShoulderIcon />, title: 'Frozen Shoulder' },
-  { icon: <SciaticaIcon />, title: 'Sciatica' },
-  { icon: <SlipDiscIcon />, title: 'Slip Disc' },
-  { icon: <ArthritisIcon />, title: 'Arthritis' },
-  { icon: <RunningIcon />, title: 'Sports Injury' },
+  {
+    image: '/images/condition-cervical-spondylosis.webp',
+    title: 'Cervical Spondylosis',
+    description: 'Age-related wear affecting the neck joints and discs.',
+  },
+  {
+    image: '/images/condition-lower-back-pain.webp',
+    title: 'Lower Back Pain',
+    description: 'Chronic or acute pain in the lumbar spine and muscles.',
+  },
+  {
+    image: '/images/condition-knee-pain.webp',
+    title: 'Knee Pain / Osteoarthritis',
+    description: 'Joint stiffness and pain from cartilage wear in the knee.',
+  },
+  {
+    image: '/images/condition-frozen-shoulder.webp',
+    title: 'Frozen Shoulder',
+    description: 'Stiffness and restricted movement in the shoulder joint.',
+  },
+  {
+    image: '/images/condition-sciatica.webp',
+    title: 'Sciatica',
+    description: 'Radiating pain along the sciatic nerve into the leg.',
+  },
+  {
+    image: '/images/condition-slip-disc.webp',
+    title: 'Slip Disc',
+    description: 'Displaced spinal disc pressing on nearby nerves.',
+  },
+  {
+    image: '/images/condition-arthritis.webp',
+    title: 'Arthritis',
+    description: 'Inflammation causing joint pain, swelling and stiffness.',
+  },
+  {
+    image: '/images/condition-sports-injury.webp',
+    title: 'Sports Injury',
+    description: 'Muscle, tendon and joint injuries from physical activity.',
+  },
 ]
 
 export const SKIN_CONDITIONS = [
