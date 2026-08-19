@@ -12,9 +12,9 @@ export function Header() {
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3 sm:px-6 lg:px-8">
         <Link to="/" className="flex items-center gap-3">
           <img
-            src="/images/doctor-portrait.webp"
+            src="/images/bhanu-portrait.jpg"
             alt="Dr. Bhanu K Panchal"
-            className="h-14 w-14 rounded-full border-2 border-primary/30 object-cover"
+            className="h-14 w-14 rounded-full border-2 border-primary/30 object-center"
           />
           <div className="leading-tight">
             <div className="font-display text-lg font-semibold text-primary">

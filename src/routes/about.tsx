@@ -8,7 +8,7 @@ function About() {
     <div className="section-pad">
       <div className="grid gap-10 lg:grid-cols-[1fr_1.4fr] lg:items-start">
         <img
-          src="/images/doctor-portrait.webp"
+          src="/images/bhanu-portrait.jpg"
           alt="Dr. Bhanu K Panchal"
           className="mx-auto h-64 w-64 rounded-full border-4 border-primary/15 object-cover lg:mx-0"
         />
