@@ -141,6 +141,29 @@ export const createBooking = createServerFn({ method: 'POST' })
     return booking
   })
 
+const ConfirmBookingPaymentInput = z.object({ bookingId: z.number() })
+
+export const confirmBookingPayment = createServerFn({ method: 'POST' })
+  .validator(ConfirmBookingPaymentInput)
+  .handler(async ({ data }) => {
+    const { writeS3Sqlite } = await import('./s3/with-sqlite')
+    return writeS3Sqlite((db) => {
+      const existing = db
+        .select({ id: bookings.id })
+        .from(bookings)
+        .where(eq(bookings.id, data.bookingId))
+        .get()
+      if (!existing) throw new Error('Booking not found')
+
+      return db
+        .update(bookings)
+        .set({ userHasConfirmedPayment: true })
+        .where(eq(bookings.id, data.bookingId))
+        .returning()
+        .get()
+    })
+  })
+
 export const listBookings = createServerFn({ method: 'GET' }).handler(
   async () => {
     const { readS3Sqlite } = await import('./s3/with-sqlite')

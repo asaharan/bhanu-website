@@ -1,6 +1,11 @@
 import { useState } from 'react'
 import type { AvailableSlot } from '../../server/bookings'
-import { createBooking, getAvailableSlots } from '../../server/bookings'
+import {
+  confirmBookingPayment,
+  createBooking,
+  getAvailableSlots,
+} from '../../server/bookings'
+import type { Booking } from '../../server/db/schema'
 import { DatePicker } from './DatePicker'
 import { SlotPicker } from './SlotPicker'
 
@@ -12,7 +17,17 @@ const CONDITION_OPTIONS = [
   { value: 'other', label: 'Other' },
 ] as const
 
-type Status = 'idle' | 'loading-slots' | 'submitting' | 'success' | 'error'
+const UPI_ID = '9350028551@ptsbi'
+const UPI_PAYEE_NAME = 'Dr Bhanu Panchal'
+
+type Status =
+  | 'idle'
+  | 'loading-slots'
+  | 'submitting'
+  | 'awaiting-payment'
+  | 'confirming-payment'
+  | 'success'
+  | 'error'
 
 export function BookingForm() {
   const [date, setDate] = useState('')
@@ -20,6 +35,7 @@ export function BookingForm() {
   const [slotStart, setSlotStart] = useState<string | null>(null)
   const [status, setStatus] = useState<Status>('idle')
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
+  const [booking, setBooking] = useState<Booking | null>(null)
 
   const [patientName, setPatientName] = useState('')
   const [phone, setPhone] = useState('')
@@ -54,7 +70,7 @@ export function BookingForm() {
     setStatus('submitting')
     setErrorMessage(null)
     try {
-      await createBooking({
+      const created = await createBooking({
         data: {
           patientName,
           phone,
@@ -65,7 +81,8 @@ export function BookingForm() {
           slotStart,
         },
       })
-      setStatus('success')
+      setBooking(created)
+      setStatus('awaiting-payment')
     } catch (err) {
       setErrorMessage(
         err instanceof Error
@@ -86,6 +103,20 @@ export function BookingForm() {
     }
   }
 
+  async function handleConfirmPayment() {
+    if (!booking) return
+
+    setStatus('confirming-payment')
+    setErrorMessage(null)
+    try {
+      await confirmBookingPayment({ data: { bookingId: booking.id } })
+      setStatus('success')
+    } catch {
+      setErrorMessage('Could not save your confirmation — please try again.')
+      setStatus('awaiting-payment')
+    }
+  }
+
   if (status === 'success') {
     return (
       <div className="card p-8 text-center">
@@ -95,6 +126,50 @@ export function BookingForm() {
         <p className="mt-2 text-primary-dark/75">
           We&apos;ve confirmed your appointment on {date} at {slotStart}.
           We&apos;ll reach out on {phone} if anything changes.
+        </p>
+      </div>
+    )
+  }
+
+  if (status === 'awaiting-payment' || status === 'confirming-payment') {
+    const upiLink = `upi://pay?pa=${encodeURIComponent(UPI_ID)}&pn=${encodeURIComponent(UPI_PAYEE_NAME)}&cu=INR&tn=${encodeURIComponent(`Consultation booking - ${patientName}`)}`
+
+    return (
+      <div className="card space-y-5 p-6 text-center sm:p-8">
+        <h3 className="font-display text-2xl font-semibold text-primary">
+          Scan &amp; pay to confirm
+        </h3>
+        <p className="text-primary-dark/75">
+          Your slot on {date} at {slotStart} is held for you. Please complete
+          the payment below, then let us know you&apos;ve paid.
+        </p>
+
+        <img
+          src="/images/bhanu-upi-qr.jpg"
+          alt="UPI QR code for payment"
+          className="mx-auto w-48 rounded-lg border border-primary/10"
+        />
+        <p className="text-sm text-primary-dark/60">UPI ID: {UPI_ID}</p>
+
+        <a href={upiLink} className="btn-secondary w-full justify-center">
+          Pay via UPI app
+        </a>
+
+        {errorMessage ? (
+          <p className="text-sm text-red-600">{errorMessage}</p>
+        ) : null}
+
+        <button
+          type="button"
+          onClick={handleConfirmPayment}
+          disabled={status === 'confirming-payment'}
+          className="btn-primary w-full justify-center disabled:opacity-60"
+        >
+          {status === 'confirming-payment' ? 'Confirming…' : 'I have paid'}
+        </button>
+        <p className="text-xs text-primary-dark/50">
+          This only lets us know you&apos;ve completed the payment step —
+          we&apos;ll verify it on our end before your appointment.
         </p>
       </div>
     )

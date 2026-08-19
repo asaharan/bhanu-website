@@ -21,7 +21,28 @@ function openSqlite(localPath: string) {
   // a `-wal` sidecar file that never gets uploaded to S3.
   sqlite.pragma('journal_mode = DELETE')
   sqlite.exec(SCHEMA_DDL)
+  migrateSchema(sqlite)
   return sqlite
+}
+
+/**
+ * CREATE TABLE IF NOT EXISTS above only bootstraps a brand-new snapshot — it
+ * never retrofits columns onto a `bookings` table that already exists in an
+ * older S3 snapshot. Add any such backfills here, guarded on column absence,
+ * so old snapshots are upgraded in place the next time they're opened.
+ */
+function migrateSchema(sqlite: Database.Database) {
+  const columns = sqlite.prepare('PRAGMA table_info(bookings)').all() as Array<{
+    name: string
+  }>
+  const hasPaymentColumn = columns.some(
+    (c) => c.name === 'user_has_confirmed_payment',
+  )
+  if (!hasPaymentColumn) {
+    sqlite.exec(
+      'ALTER TABLE bookings ADD COLUMN user_has_confirmed_payment INTEGER NOT NULL DEFAULT 0',
+    )
+  }
 }
 
 export class SlotConflictRetriesExhaustedError extends Error {

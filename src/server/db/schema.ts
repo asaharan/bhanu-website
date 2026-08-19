@@ -26,6 +26,12 @@ export const bookings = sqliteTable('bookings', {
   })
     .notNull()
     .default('confirmed'),
+  /** Patient self-reported "I have paid" — not proof of actual payment receipt. */
+  userHasConfirmedPayment: integer('user_has_confirmed_payment', {
+    mode: 'boolean',
+  })
+    .notNull()
+    .default(false),
   createdAt: text('created_at')
     .notNull()
     .default(sql`(strftime('%Y-%m-%dT%H:%M:%fZ','now'))`),
@@ -53,6 +59,7 @@ CREATE TABLE IF NOT EXISTS bookings (
   slot_start TEXT NOT NULL,
   slot_end TEXT NOT NULL,
   status TEXT NOT NULL DEFAULT 'confirmed',
+  user_has_confirmed_payment INTEGER NOT NULL DEFAULT 0,
   created_at TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ','now'))
 );
 

@@ -41,13 +41,14 @@ function AdminBookings() {
               <th className="px-4 py-3">Phone</th>
               <th className="px-4 py-3">Category</th>
               <th className="px-4 py-3">Status</th>
+              <th className="px-4 py-3">Payment</th>
             </tr>
           </thead>
           <tbody>
             {bookings.length === 0 ? (
               <tr>
                 <td
-                  colSpan={6}
+                  colSpan={7}
                   className="px-4 py-6 text-center text-primary-dark/50"
                 >
                   No bookings yet.
@@ -62,6 +63,19 @@ function AdminBookings() {
                   <td className="px-4 py-3">{booking.phone}</td>
                   <td className="px-4 py-3">{booking.conditionCategory}</td>
                   <td className="px-4 py-3">{booking.status}</td>
+                  <td className="px-4 py-3">
+                    <span
+                      className={
+                        booking.userHasConfirmedPayment
+                          ? 'font-medium text-green-700'
+                          : 'text-primary-dark/50'
+                      }
+                    >
+                      {booking.userHasConfirmedPayment
+                        ? 'Confirmed by patient'
+                        : 'Not confirmed'}
+                    </span>
+                  </td>
                 </tr>
               ))
             )}
