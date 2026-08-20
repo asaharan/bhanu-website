@@ -15,7 +15,7 @@ function Contact() {
 
       <div className="mx-auto mt-12 grid max-w-3xl gap-6 sm:grid-cols-2">
         <div className="card p-6 text-center">
-          <h3 className="font-semibold text-primary">Call Us</h3>
+          <h3 className="font-semibold text-black">Call Us</h3>
           <a
             href={`tel:${CONTACT_PHONE_HREF}`}
             className="mt-2 block text-lg font-semibold text-primary-dark"
@@ -24,7 +24,7 @@ function Contact() {
           </a>
         </div>
         <div className="card p-6 text-center">
-          <h3 className="font-semibold text-primary">WhatsApp</h3>
+          <h3 className="font-semibold text-black">WhatsApp</h3>
           <a
             href={WHATSAPP_HREF}
             target="_blank"
@@ -37,7 +37,7 @@ function Contact() {
       </div>
 
       <div className="mx-auto mt-10 max-w-3xl card p-6">
-        <h3 className="font-semibold text-primary">Clinic Hours</h3>
+        <h3 className="font-semibold text-black">Clinic Hours</h3>
         <ul className="mt-2 space-y-1 text-sm text-primary-dark/80">
           {CLINIC_WINDOWS.map((window) => (
             <li key={window.start}>
@@ -50,7 +50,7 @@ function Contact() {
 
       <div className="mt-10 text-center">
         <Link to="/book-a-slot" className="btn-primary">
-          Book My Slot
+          Book Consultation
         </Link>
       </div>
     </div>

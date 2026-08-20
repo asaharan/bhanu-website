@@ -17,7 +17,7 @@ export function Header() {
             className="h-14 w-14 rounded-full border-2 border-primary/30 object-center"
           />
           <div className="leading-tight">
-            <div className="font-display text-lg font-semibold text-primary">
+            <div className="font-display text-lg font-semibold text-black">
               Dr. Bhanu K Panchal
             </div>
             <div className="text-xs text-primary-dark/60">M.D. (Ayu)</div>
@@ -27,7 +27,7 @@ export function Header() {
         <Link to="/" className="hidden items-center gap-2 sm:flex">
           <LeafIcon className="h-9 w-9 text-primary" />
           <div className="leading-tight">
-            <div className="font-display text-xl font-semibold text-primary">
+            <div className="font-display text-xl font-semibold text-black">
               AyurGarima
             </div>
             <div className="text-[11px] text-primary-dark/60">
@@ -55,12 +55,12 @@ export function Header() {
       </div>
 
       <nav className="hidden border-t border-primary/10 lg:block">
-        <div className="mx-auto flex max-w-6xl items-center justify-end gap-6 px-4 py-2.5 text-sm font-medium text-primary-dark sm:px-6 lg:px-8">
+        <div className="mx-auto flex max-w-6xl items-center justify-end gap-6 px-4 py-2.5 text-sm font-medium text-black sm:px-6 lg:px-8">
           {NAV_LINKS.map((link) => (
             <Link
               key={link.to}
               to={link.to}
-              className="hover:text-primary [&.active]:text-primary [&.active]:font-semibold"
+              className="hover:opacity-70 [&.active]:font-semibold"
             >
               {link.label}
             </Link>
@@ -73,7 +73,7 @@ export function Header() {
           >
             <Link
               to="/conditions"
-              className="flex items-center gap-1 hover:text-primary"
+              className="flex items-center gap-1 hover:opacity-70"
             >
               Conditions We Treat
               <svg
@@ -97,7 +97,7 @@ export function Header() {
                     key={category.slug}
                     to="/conditions"
                     hash={category.slug}
-                    className="block px-4 py-2 text-sm hover:bg-cream hover:text-primary"
+                    className="block px-4 py-2 text-sm text-black hover:bg-cream"
                   >
                     {category.label}
                   </Link>
@@ -108,7 +108,7 @@ export function Header() {
 
           <Link
             to="/contact"
-            className="hover:text-primary [&.active]:text-primary [&.active]:font-semibold"
+            className="hover:opacity-70 [&.active]:font-semibold"
           >
             Contact Us
           </Link>
@@ -117,14 +117,14 @@ export function Header() {
             to="/book-a-slot"
             className="rounded-lg bg-primary px-4 py-2 text-cream hover:bg-primary-dark"
           >
-            Book My Slot
+            Book Consultation
           </Link>
         </div>
       </nav>
 
       {mobileOpen ? (
         <nav className="border-t border-primary/10 px-4 pb-4 lg:hidden">
-          <div className="flex flex-col gap-1 pt-2 text-sm font-medium text-primary-dark">
+          <div className="flex flex-col gap-1 pt-2 text-sm font-medium text-black">
             {NAV_LINKS.map((link) => (
               <Link
                 key={link.to}
@@ -157,7 +157,7 @@ export function Header() {
               to="/book-a-slot"
               className="mt-2 rounded-lg bg-primary px-4 py-2 text-center text-cream hover:bg-primary-dark"
             >
-              Book My Slot
+              Book Consultation
             </Link>
           </div>
         </nav>

@@ -18,7 +18,7 @@ export function ServiceCard({
         loading="lazy"
       />
       <div className="flex flex-1 flex-col p-5">
-        <h3 className="font-display text-lg font-semibold text-primary">
+        <h3 className="font-display text-lg font-semibold text-black">
           {title}
         </h3>
         <p className="mt-2 flex-1 text-sm text-primary-dark/70">

@@ -1,12 +1,12 @@
-@import 'tailwindcss';
 @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap');
+@import 'tailwindcss';
 
 @theme {
-  --color-primary: #1f3d2b;
-  --color-primary-dark: #14261b;
-  --color-primary-light: #4c7a52;
-  --color-cream: #f7f5ee;
-  --color-cream-dark: #efe9d8;
+  --color-primary: #2e7d32;
+  --color-primary-dark: #1b4d22;
+  --color-primary-light: #66bb6a;
+  --color-cream: #eef7ea;
+  --color-cream-dark: #dcefd6;
   --color-surface: #ffffff;
   --color-accent: #b08d57;
 
@@ -52,7 +52,7 @@ h4 {
   }
 
   .section-heading {
-    @apply text-center font-display text-3xl font-semibold text-primary sm:text-4xl;
+    @apply text-center font-display text-3xl font-semibold text-black sm:text-4xl;
   }
 
   .icon-badge {

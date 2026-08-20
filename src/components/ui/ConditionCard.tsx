@@ -16,7 +16,7 @@ export function ConditionPhotoCard({
         loading="lazy"
       />
       <div className="p-4">
-        <h3 className="font-semibold text-primary">{title}</h3>
+        <h3 className="font-semibold text-black">{title}</h3>
         <p className="mt-1 text-sm text-primary-dark/70">{description}</p>
       </div>
     </article>

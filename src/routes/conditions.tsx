@@ -64,7 +64,7 @@ function Conditions() {
                 {item.icon}
               </span>
               <div>
-                <h3 className="font-semibold text-primary">{item.title}</h3>
+                <h3 className="font-semibold text-black">{item.title}</h3>
                 <p className="text-sm text-primary-dark/70">
                   {item.description}
                 </p>
@@ -86,7 +86,7 @@ function Conditions() {
                 {item.icon}
               </span>
               <div>
-                <h3 className="font-semibold text-primary">{item.title}</h3>
+                <h3 className="font-semibold text-black">{item.title}</h3>
                 <p className="text-sm text-primary-dark/70">
                   {item.description}
                 </p>
@@ -98,7 +98,7 @@ function Conditions() {
 
       <div className="text-center">
         <Link to="/book-a-slot" className="btn-primary">
-          Book My Slot
+          Book Consultation
         </Link>
       </div>
     </div>

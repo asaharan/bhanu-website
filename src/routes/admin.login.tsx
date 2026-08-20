@@ -26,7 +26,7 @@ function AdminLogin() {
 
   return (
     <div className="mx-auto max-w-sm">
-      <h1 className="font-display text-2xl font-semibold text-primary">
+      <h1 className="font-display text-2xl font-semibold text-black">
         Admin Login
       </h1>
       <form onSubmit={handleSubmit} className="card mt-6 space-y-4 p-6">

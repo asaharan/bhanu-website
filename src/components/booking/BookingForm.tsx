@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import type { AvailableSlot } from '../../server/bookings'
 import {
   confirmBookingPayment,
@@ -19,6 +19,29 @@ const CONDITION_OPTIONS = [
 
 const UPI_ID = '9350028551@ptsbi'
 const UPI_PAYEE_NAME = 'Dr Bhanu Panchal'
+const CONSULTATION_FEE = 499
+
+function formatBookedDate(dateStr: string) {
+  const d = new Date(`${dateStr}T12:00:00Z`)
+  return {
+    weekday: d.toLocaleDateString('en-IN', {
+      weekday: 'short',
+      timeZone: 'UTC',
+    }),
+    day: d.toLocaleDateString('en-IN', { day: 'numeric', timeZone: 'UTC' }),
+    month: d.toLocaleDateString('en-IN', {
+      month: 'short',
+      timeZone: 'UTC',
+    }),
+  }
+}
+
+function formatBookedTime(hhmm: string) {
+  const [h, m] = hhmm.split(':').map(Number)
+  const period = h >= 12 ? 'PM' : 'AM'
+  const hour12 = h % 12 === 0 ? 12 : h % 12
+  return `${hour12}:${String(m).padStart(2, '0')} ${period}`
+}
 
 type Status =
   | 'idle'
@@ -43,6 +66,17 @@ export function BookingForm() {
   const [reason, setReason] = useState('')
   const [conditionCategory, setConditionCategory] =
     useState<(typeof CONDITION_OPTIONS)[number]['value']>('other')
+
+  const awaitingPaymentRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    if (status === 'awaiting-payment') {
+      awaitingPaymentRef.current?.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+      })
+    }
+  }, [status])
 
   async function handleDateChange(nextDate: string) {
     setDate(nextDate)
@@ -118,30 +152,102 @@ export function BookingForm() {
   }
 
   if (status === 'success') {
+    const { weekday, day, month } = formatBookedDate(date)
+
     return (
-      <div className="card p-8 text-center">
-        <h3 className="font-display text-2xl font-semibold text-primary">
-          Your slot is booked!
+      <div className="card p-6 text-center sm:p-8">
+        <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-green-100">
+          <svg
+            viewBox="0 0 24 24"
+            className="h-9 w-9 text-green-600"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth={3}
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="m5 13 4 4L19 7"
+            />
+          </svg>
+        </div>
+
+        <h3 className="mt-4 font-display text-2xl font-semibold text-black">
+          Your consultation is booked!
         </h3>
         <p className="mt-2 text-primary-dark/75">
-          We&apos;ve confirmed your appointment on {date} at {slotStart}.
           We&apos;ll reach out on {phone} if anything changes.
+        </p>
+
+        <div className="mx-auto mt-6 flex max-w-sm overflow-hidden rounded-2xl border border-blue-200 text-left">
+          <div className="flex w-30 shrink-0 flex-col items-center justify-center bg-blue-600 px-2 py-5 text-cream">
+            <span className="text-xs font-semibold uppercase tracking-wide">
+              {month}
+            </span>
+            <span className="font-display text-4xl font-bold leading-tight">
+              {day}
+            </span>
+            <span className="text-xs">{weekday}</span>
+          </div>
+          <div className="flex flex-1 flex-col justify-center px-5 py-4">
+            <span className="text-xs font-semibold uppercase tracking-wide">
+              Time
+            </span>
+            <span className="font-display text-2xl font-bold">
+              {slotStart ? formatBookedTime(slotStart) : ''}
+            </span>
+            <span className="mt-1 text-xs text-black-800">
+              with Dr. Bhanu K Panchal
+            </span>
+          </div>
+        </div>
+
+        <p className="mt-6 text-xs text-primary-dark/50">
+          We&apos;ll verify your payment before the appointment &mdash;
+          you&apos;re all set until then.
         </p>
       </div>
     )
   }
 
   if (status === 'awaiting-payment' || status === 'confirming-payment') {
-    const upiLink = `upi://pay?pa=${encodeURIComponent(UPI_ID)}&pn=${encodeURIComponent(UPI_PAYEE_NAME)}&cu=INR&tn=${encodeURIComponent(`Consultation booking - ${patientName}`)}`
+    const upiLink = `upi://pay?pa=${encodeURIComponent(UPI_ID)}&pn=${encodeURIComponent(UPI_PAYEE_NAME)}&am=${CONSULTATION_FEE}&cu=INR&tn=${encodeURIComponent(`Consultation booking - ${patientName}`)}`
 
     return (
-      <div className="card space-y-5 p-6 text-center sm:p-8">
-        <h3 className="font-display text-2xl font-semibold text-primary">
-          Scan &amp; pay to confirm
-        </h3>
-        <p className="text-primary-dark/75">
-          Your slot on {date} at {slotStart} is held for you. Please complete
-          the payment below, then let us know you&apos;ve paid.
+      <div
+        ref={awaitingPaymentRef}
+        className="card scroll-mt-30 space-y-6 p-6 text-center sm:p-8 lg:scroll-mt-32"
+      >
+        <div>
+          <span className="inline-block rounded-full bg-primary-light/15 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-primary">
+            Almost there
+          </span>
+          <h3 className="mt-3 font-display text-2xl font-semibold text-black">
+            Secure your consultation
+          </h3>
+          <p className="mt-2 text-primary-dark/75">
+            Your slot on <span className="font-medium">{date}</span> at{' '}
+            <span className="font-medium">{slotStart}</span> with Dr. Bhanu K
+            Panchal is reserved for you &mdash; complete the payment below to
+            lock it in.
+          </p>
+        </div>
+
+        <div className="mx-auto flex max-w-xs flex-col items-center gap-1 rounded-2xl px-6 py-5">
+          <span className="text-xs font-semibold uppercase tracking-wide text-primary-dark/60">
+            Consultation Fee
+          </span>
+          <span className="font-display text-5xl font-bold text-primary">
+            &#8377;{CONSULTATION_FEE}
+          </span>
+          <span className="text-xs text-primary-dark/60">
+            One-time payment &bull; No hidden charges
+          </span>
+        </div>
+
+        <p className="text-sm text-primary-dark/75">
+          Includes Prakriti analysis, root-cause diagnosis, and a personalized
+          treatment plan crafted just for you.
         </p>
 
         <img
@@ -152,7 +258,7 @@ export function BookingForm() {
         <p className="text-sm text-primary-dark/60">UPI ID: {UPI_ID}</p>
 
         <a href={upiLink} className="btn-secondary w-full justify-center">
-          Pay via UPI app
+          Pay &#8377;{CONSULTATION_FEE} via UPI app
         </a>
 
         {errorMessage ? (
@@ -165,7 +271,9 @@ export function BookingForm() {
           disabled={status === 'confirming-payment'}
           className="btn-primary w-full justify-center disabled:opacity-60"
         >
-          {status === 'confirming-payment' ? 'Confirming…' : 'I have paid'}
+          {status === 'confirming-payment'
+            ? 'Confirming…'
+            : "I've paid — confirm my slot"}
         </button>
         <p className="text-xs text-primary-dark/50">
           This only lets us know you&apos;ve completed the payment step —

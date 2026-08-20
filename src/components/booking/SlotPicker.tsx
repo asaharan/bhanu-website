@@ -33,14 +33,24 @@ export function SlotPicker({
         <button
           key={slot.start}
           type="button"
+          disabled={slot.booked}
           onClick={() => onSelect(slot.start)}
-          className={`rounded-lg border px-3 py-2 text-sm font-medium transition-colors ${
-            selected === slot.start
-              ? 'border-primary bg-primary text-cream'
-              : 'border-primary/20 text-primary-dark hover:border-primary'
+          className={`flex flex-col items-center rounded-lg border px-3 py-2 text-sm font-medium transition-colors ${
+            slot.booked
+              ? 'cursor-not-allowed border-primary/10 bg-primary/5 text-primary-dark/35'
+              : selected === slot.start
+                ? 'border-primary bg-primary text-cream'
+                : 'border-primary/20 text-primary-dark hover:border-primary'
           }`}
         >
-          {slot.start}
+          <span className={slot.booked ? 'line-through' : ''}>
+            {slot.start}
+          </span>
+          {slot.booked ? (
+            <span className="text-[10px] font-semibold uppercase tracking-wide">
+              Booked
+            </span>
+          ) : null}
         </button>
       ))}
     </div>

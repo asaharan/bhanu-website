@@ -13,7 +13,7 @@ function About() {
           className="mx-auto h-64 w-64 rounded-full border-4 border-primary/15 object-cover lg:mx-0"
         />
         <div>
-          <h1 className="font-display text-3xl font-semibold text-primary sm:text-4xl">
+          <h1 className="font-display text-3xl font-semibold text-black sm:text-4xl">
             Dr. Bhanu K Panchal
           </h1>
           <p className="mt-1 text-primary-dark/60">M.D. (Ayu)</p>
@@ -36,7 +36,7 @@ function About() {
 
           <div className="mt-8 flex flex-wrap gap-4">
             <Link to="/book-a-slot" className="btn-primary">
-              Book My Slot
+              Book Consultation
             </Link>
             <Link to="/services" className="btn-secondary">
               Our Services

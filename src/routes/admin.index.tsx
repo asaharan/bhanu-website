@@ -23,7 +23,7 @@ function AdminBookings() {
   return (
     <div>
       <div className="flex items-center justify-between">
-        <h1 className="font-display text-2xl font-semibold text-primary">
+        <h1 className="font-display text-2xl font-semibold text-black">
           Bookings
         </h1>
         <button type="button" onClick={handleLogout} className="btn-secondary">

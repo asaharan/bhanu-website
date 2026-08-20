@@ -8,8 +8,8 @@ function BookASlot() {
   return (
     <div className="section-pad">
       <SectionHeading
-        title="Book My Slot"
-        subtitle="Pick a date and time that works for you — we'll confirm it instantly."
+        title="Book Consultation"
+        subtitle="Pick a date and time that works for you, then complete a quick payment to reserve your consultation."
       />
       <div className="mx-auto mt-10 max-w-xl">
         <BookingForm />

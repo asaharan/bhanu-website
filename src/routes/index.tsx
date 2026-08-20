@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from '@tanstack/react-router'
-import { LeafIcon } from '../components/icons/LeafIcon'
+import { Leaf } from 'lucide-react'
 import { IconBadge } from '../components/ui/IconBadge'
 import { SectionHeading } from '../components/ui/SectionHeading'
 import { ServiceCard } from '../components/ui/ServiceCard'
@@ -19,7 +19,7 @@ function Home() {
     <div>
       <section className="section-pad grid gap-10 pb-10 pt-8 lg:grid-cols-2 lg:items-center">
         <div>
-          <h1 className="font-display text-4xl font-bold leading-tight text-primary sm:text-5xl">
+          <h1 className="font-display text-4xl font-bold leading-tight text-black sm:text-5xl">
             Personalized Ayurveda for a Healthier You
           </h1>
           <p className="mt-5 max-w-lg text-primary-dark/75">
@@ -41,7 +41,7 @@ function Home() {
 
           <div className="mt-8 flex flex-wrap gap-4">
             <Link to="/book-a-slot" className="btn-primary">
-              Book My Slot
+              Book Consultation
             </Link>
             <Link to="/services" className="btn-secondary">
               Our Services
@@ -55,13 +55,41 @@ function Home() {
             alt="Ayurvedic herbs, powders and a mortar and pestle"
             className="h-full max-h-[420px] w-full rounded-3xl object-cover"
           />
-          <div className="absolute -left-6 top-6 hidden max-w-[220px] rounded-full border border-primary/15 bg-cream p-6 text-center shadow-lg sm:block">
-            <LeafIcon className="mx-auto h-8 w-8 text-primary" />
-            <p className="mt-2 font-display text-sm font-semibold text-primary">
-              Ayurveda for Body &bull; Mind &bull; Soul &bull; Lifestyle &bull;
-              Longevity
-            </p>
+          <div className="absolute -left-10 top-2 hidden h-64 w-64 items-center justify-center rounded-full bg-white/40 backdrop-blur-sm sm:flex">
+            <div className="flex h-52 w-52 items-center justify-center rounded-full border-2  border-primary-light/70">
+              <div className="flex h-full w-full flex-col items-center justify-center gap-2 rounded-full bg-cream/70 p-6 text-center shadow-lg">
+                <Leaf className="h-9 w-9 text-primary-light" strokeWidth={1.75} />
+                <p className="font-display text-sm font-semibold leading-snug text-primary-light">
+                  Ayurveda for Body &bull; Mind &bull; Soul &bull; Lifestyle
+                  &bull; Longevity
+                </p>
+              </div>
+            </div>
           </div>
+        </div>
+      </section>
+
+      <section className="section-pad grid gap-8 sm:grid-cols-[auto_1fr] sm:items-center">
+        <img
+          src="/images/bhanu-portrait.jpg"
+          alt="Dr. Bhanu K Panchal"
+          className="mx-auto h-48 w-48 shrink-0 rounded-full border-4 border-primary/15 object-cover sm:mx-0"
+        />
+        <div>
+          <h2 className="font-display text-2xl font-semibold text-black">
+            Dr. Bhanu K Panchal
+          </h2>
+          <p className="mt-1 text-primary-dark/60">
+            M.D. (Ayu) &bull; Panchakarma Specialist
+          </p>
+          <p className="mt-4 text-primary-dark/80">
+            Founder of AyurGarima, Dr. Panchal has spent over 15 years helping
+            patients heal through classical Ayurvedic principles, with special
+            expertise in Panchakarma detoxification therapies. His
+            Prakriti-first approach identifies the root cause of illness and
+            builds personalized treatment plans that restore lasting balance
+            to body, mind, and soul.
+          </p>
         </div>
       </section>
 
@@ -74,7 +102,7 @@ function Home() {
               className="flex flex-col items-center gap-3 text-center"
             >
               <IconBadge size="lg">{step.icon}</IconBadge>
-              <h3 className="font-semibold text-primary">{step.title}</h3>
+              <h3 className="font-semibold text-black">{step.title}</h3>
               <p className="text-sm text-primary-dark/70">{step.description}</p>
             </div>
           ))}
@@ -99,7 +127,7 @@ function Home() {
       <section className="section-pad">
         <div className="grid gap-8 rounded-3xl bg-primary/5 p-8 sm:grid-cols-[1.2fr_1fr] sm:p-10">
           <div>
-            <h2 className="font-display text-2xl font-semibold text-primary">
+            <h2 className="font-display text-2xl font-semibold text-black">
               Why Choose AyurGarima?
             </h2>
             <ul className="mt-5 space-y-3">
@@ -141,7 +169,7 @@ function Home() {
 
       <section className="section-pad grid gap-6 rounded-3xl bg-primary-light/10 p-8 sm:grid-cols-2 sm:items-center sm:p-10">
         <div>
-          <h2 className="font-display text-2xl font-semibold text-primary">
+          <h2 className="font-display text-2xl font-semibold text-black">
             Take the First Step Towards Natural Healing
           </h2>
           <p className="mt-2 text-primary-dark/75">
@@ -151,7 +179,7 @@ function Home() {
         </div>
         <div className="flex flex-col items-start gap-3 sm:items-end">
           <Link to="/book-a-slot" className="btn-primary">
-            Book My Slot Now
+            Book Consultation Now
           </Link>
           <div className="flex gap-4 text-sm text-primary-dark/70">
             <a href={`tel:${CONTACT_PHONE_HREF}`} className="hover:underline">

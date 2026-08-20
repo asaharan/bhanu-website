@@ -37,6 +37,7 @@ function assertBookableDate(date: string) {
 export interface AvailableSlot {
   start: string
   end: string
+  booked: boolean
 }
 
 export const getAvailableSlots = createServerFn({ method: 'GET' })
@@ -61,11 +62,9 @@ export const getAvailableSlots = createServerFn({ method: 'GET' })
         .all()
       const taken = new Set(existing.map((row) => row.slotStart))
 
-      return candidates.filter((slot) => {
-        if (taken.has(slot.start)) return false
-        if (data.date === today && slot.start <= nowTime) return false
-        return true
-      })
+      return candidates
+        .filter((slot) => !(data.date === today && slot.start <= nowTime))
+        .map((slot) => ({ ...slot, booked: taken.has(slot.start) }))
     })
   })
 

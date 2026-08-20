@@ -28,7 +28,7 @@ function Services() {
               loading="lazy"
             />
             <div>
-              <h2 className="font-display text-2xl font-semibold text-primary">
+              <h2 className="font-display text-2xl font-semibold text-black">
                 {service.title}
               </h2>
               <p className="mt-3 text-primary-dark/80">
@@ -41,7 +41,7 @@ function Services() {
 
       <div className="mt-16 text-center">
         <Link to="/book-a-slot" className="btn-primary">
-          Book My Slot
+          Book Consultation
         </Link>
       </div>
     </div>
