@@ -8,7 +8,7 @@ export function Header() {
   const [conditionsOpen, setConditionsOpen] = useState(false)
 
   return (
-    <header className="sticky top-0 z-50 border-b border-primary/10 bg-cream/95 backdrop-blur">
+    <header className="sticky top-0 z-50 border-b border-primary/10 bg-cream/95 backdrop-blur relative">
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3 sm:px-6 lg:px-8">
         <Link to="/" className="flex items-center gap-3">
           <img
@@ -123,7 +123,7 @@ export function Header() {
       </nav>
 
       {mobileOpen ? (
-        <nav className="border-t border-primary/10 px-4 pb-4 lg:hidden">
+        <nav className="absolute left-0 right-0 top-full border-t border-primary/10 bg-cream px-4 pb-4 shadow-lg lg:hidden">
           <div className="flex flex-col gap-1 pt-2 text-sm font-medium text-black">
             {NAV_LINKS.map((link) => (
               <Link
