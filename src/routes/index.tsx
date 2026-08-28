@@ -77,15 +77,16 @@ function Home() {
         />
         <div>
           <h2 className="font-display text-2xl font-semibold text-black">
-            Dr. Bhanu K Panchal
+            Dr. Bhanu K. Panchal
           </h2>
           <p className="mt-1 text-primary-dark/60">
-            M.D. (Ayu) &bull; Panchakarma Specialist
+            B.A.M.S., M.D. (Kayachikitsa)
           </p>
           <p className="mt-4 text-primary-dark/80">
-            Founder of AyurGarima, Dr. Panchal has spent over 15 years helping
-            patients heal through classical Ayurvedic principles, with special
-            expertise in Panchakarma detoxification therapies. His
+            An Ayurvedic physician with 5+ years of clinical experience and
+            experience with 1,000+ patients, Dr. Panchal combines the
+            principles of classical Ayurveda with a modern understanding of
+            disease, lifestyle and evidence-based healthcare. His
             Prakriti-first approach identifies the root cause of illness and
             builds personalized treatment plans that restore lasting balance
             to body, mind, and soul.
