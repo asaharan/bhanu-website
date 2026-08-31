@@ -7,8 +7,7 @@ export interface ClinicWindow {
 }
 
 export const CLINIC_WINDOWS: ClinicWindow[] = [
-  { start: '10:00', end: '13:00' },
-  { start: '17:00', end: '20:00' },
+  { start: '10:00', end: '22:00' },
 ]
 
 /** 0 = Sunday ... 6 = Saturday (IST calendar weekday) */
