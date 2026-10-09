@@ -28,7 +28,7 @@ export function Header() {
           <LeafIcon className="h-9 w-9 text-primary" />
           <div className="leading-tight">
             <div className="font-display text-xl font-semibold text-black">
-              AyurGarima
+              Root Restore
             </div>
             <div className="text-[11px] text-primary-dark/60">
               Rooted in Ayurveda, Focused on You

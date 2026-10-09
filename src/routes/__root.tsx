@@ -17,12 +17,12 @@ export const Route = createRootRoute({
         content: 'width=device-width, initial-scale=1',
       },
       {
-        title: 'AyurGarima — Personalized Ayurveda for a Healthier You',
+        title: 'Root Restore — Personalized Ayurveda for a Healthier You',
       },
       {
         name: 'description',
         content:
-          'AyurGarima with Dr. Bhanu K Panchal, M.D. (Ayu) — Prakriti analysis, root-cause healing, personalized treatment plans, and holistic Ayurvedic care.',
+          'Root Restore with Dr. Bhanu K Panchal, M.D. (Ayu) — Prakriti analysis, root-cause healing, personalized treatment plans, and holistic Ayurvedic care.',
       },
     ],
     links: [

@@ -129,7 +129,7 @@ function Home() {
         <div className="grid gap-8 rounded-3xl bg-primary/5 p-8 sm:grid-cols-[1.2fr_1fr] sm:p-10">
           <div>
             <h2 className="font-display text-2xl font-semibold text-black">
-              Why Choose AyurGarima?
+              Why Choose Root Restore?
             </h2>
             <ul className="mt-5 space-y-3">
               {WHY_CHOOSE_US.map((item) => (

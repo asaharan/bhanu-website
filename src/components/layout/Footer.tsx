@@ -16,7 +16,7 @@ export function Footer() {
           <div className="flex items-center gap-2">
             <LeafIcon className="h-8 w-8" />
             <span className="font-display text-xl font-semibold">
-              AyurGarima
+              Root Restore
             </span>
           </div>
           <p className="mt-3 text-sm text-cream/70">
@@ -83,7 +83,7 @@ export function Footer() {
 
       <div className="border-t border-cream/10 px-4 py-4 text-center text-xs text-cream/60">
         <p>
-          &copy; {new Date().getFullYear()} AyurGarima &mdash; Dr. Bhanu K
+          &copy; {new Date().getFullYear()} Root Restore &mdash; Dr. Bhanu K
           Panchal, M.D. (Ayu)
         </p>
         <p className="mt-1">

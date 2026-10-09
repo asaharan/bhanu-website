@@ -27,7 +27,7 @@ export async function notifyDoctorOfBooking(booking: Booking): Promise<void> {
     body: JSON.stringify({
       from:
         process.env.NOTIFY_EMAIL_FROM ??
-        'AyurGarima Bookings <bookings@ayurgarima.example>',
+        'Root Restore Bookings <bookings@rootrestore.in>',
       to,
       subject: `New booking: ${booking.patientName} — ${booking.appointmentDate} ${booking.slotStart}`,
       text: [

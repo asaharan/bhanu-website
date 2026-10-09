@@ -1,12 +1,12 @@
-# About AyurGarima
+# About Root Restore
 
 ## Ayurveda, Personalized for You
 
-**AyurGarima** was created with a simple vision — to make authentic, personalized Ayurvedic healthcare **accessible and within reach of everyone**.
+**Root Restore** was created with a simple vision — to make authentic, personalized Ayurvedic healthcare **accessible and within reach of everyone**.
 
 We believe that every individual is different. Your **Prakriti, lifestyle, environment, habits, mental wellbeing, diet, and life experiences** all influence your health. Therefore, the same treatment cannot be expected to work equally for everyone.
 
-At AyurGarima, we focus on understanding **you as an individual**, identifying the possible root causes behind your health concerns, and developing a personalized approach based on your unique constitution and needs.
+At Root Restore, we focus on understanding **you as an individual**, identifying the possible root causes behind your health concerns, and developing a personalized approach based on your unique constitution and needs.
 
 ## Meet Dr. Bhanu K. Panchal
 
@@ -28,7 +28,7 @@ His clinical approach combines the principles of **classical Ayurveda with a mod
 
 ## Our Approach: Find the Root, Treat the Individual
 
-At AyurGarima, treatment does not begin simply by asking, **“What disease do you have?”**
+At Root Restore, treatment does not begin simply by asking, **“What disease do you have?”**
 
 We try to understand:
 
@@ -47,11 +47,11 @@ One of the fundamental principles behind our approach is that **every person is 
 
 Your Prakriti can help us understand individual tendencies and why certain people may be more susceptible to particular health problems or may respond differently to lifestyle and treatment approaches.
 
-Instead of following a **one-size-fits-all approach**, AyurGarima aims to make Ayurveda more **individualized, practical and understandable**.
+Instead of following a **one-size-fits-all approach**, Root Restore aims to make Ayurveda more **individualized, practical and understandable**.
 
 ## Our Philosophy
 
-At AyurGarima, we value:
+At Root Restore, we value:
 
 **Compassion** — Every patient deserves to be heard and understood.
 
@@ -65,18 +65,18 @@ At AyurGarima, we value:
 
 ## Our Vision
 
-Our vision through **AyurGarima** is to bring Ayurveda closer to people.
+Our vision through **Root Restore** is to bring Ayurveda closer to people.
 
 We want Ayurvedic healthcare to be **accessible, understandable and within reach of everyone**, while preserving the depth and wisdom of classical Ayurveda.
 
-Whether your goal is to better understand your health, improve your lifestyle, manage a chronic concern, or work towards preventive wellbeing, AyurGarima aims to provide a personalized and patient-centred Ayurvedic healthcare experience.
+Whether your goal is to better understand your health, improve your lifestyle, manage a chronic concern, or work towards preventive wellbeing, Root Restore aims to provide a personalized and patient-centred Ayurvedic healthcare experience.
 
 ### A Message from Dr. Bhanu K. Panchal
 
-> **“I believe healthcare should begin with understanding the person, not just identifying the disease. Every individual has a unique Prakriti, lifestyle and set of circumstances. My aim through AyurGarima is to understand these individual differences, identify the possible root causes of health problems, and guide each person towards a personalized path to better health through Ayurveda, appropriate diet and sustainable lifestyle changes.”**
+> **“I believe healthcare should begin with understanding the person, not just identifying the disease. Every individual has a unique Prakriti, lifestyle and set of circumstances. My aim through Root Restore is to understand these individual differences, identify the possible root causes of health problems, and guide each person towards a personalized path to better health through Ayurveda, appropriate diet and sustainable lifestyle changes.”**
 
-## AyurGarima — Understand Your Body. Understand Your Prakriti. Transform Your Health
+## Root Restore — Understand Your Body. Understand Your Prakriti. Transform Your Health
 
 **Your health is personal. Your approach to health should be personal too.**
 
-**Start your AyurGarima journey today.**
+**Start your Root Restore journey today.**

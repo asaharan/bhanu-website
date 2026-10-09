@@ -70,7 +70,7 @@ function About() {
           Ayurveda, Personalized for You
         </h1>
         <p className="mt-4 text-primary-dark/80">
-          <strong>AyurGarima</strong> was created with a simple vision &mdash;
+          <strong>Root Restore</strong> was created with a simple vision &mdash;
           to make authentic, personalized Ayurvedic healthcare accessible and
           within reach of everyone. We believe that every individual is
           different: your Prakriti, lifestyle, environment, habits, mental
@@ -157,7 +157,7 @@ function About() {
             why certain people may be more susceptible to particular health
             problems or may respond differently to lifestyle and treatment
             approaches. Instead of following a one-size-fits-all approach,
-            AyurGarima aims to make Ayurveda more individualized, practical
+            Root Restore aims to make Ayurveda more individualized, practical
             and understandable.
           </p>
         </div>
@@ -188,14 +188,14 @@ function About() {
             within reach of everyone, while preserving the depth and wisdom
             of classical Ayurveda. Whether your goal is to better understand
             your health, improve your lifestyle, manage a chronic concern, or
-            work towards preventive wellbeing, AyurGarima aims to provide a
+            work towards preventive wellbeing, Root Restore aims to provide a
             personalized and patient-centred Ayurvedic healthcare experience.
           </p>
           <blockquote className="rounded-2xl bg-primary/5 p-6 text-primary-dark/90">
             &ldquo;I believe healthcare should begin with understanding the
             person, not just identifying the disease. Every individual has a
             unique Prakriti, lifestyle and set of circumstances. My aim
-            through AyurGarima is to understand these individual
+            through Root Restore is to understand these individual
             differences, identify the possible root causes of health
             problems, and guide each person towards a personalized path to
             better health through Ayurveda, appropriate diet and sustainable
@@ -218,7 +218,7 @@ function About() {
         </p>
         <div className="mt-6 flex flex-wrap justify-center gap-4">
           <Link to="/book-a-slot" className="btn-primary">
-            Start Your AyurGarima Journey Today
+            Start Your Root Restore Journey Today
           </Link>
         </div>
       </div>
