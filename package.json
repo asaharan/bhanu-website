@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.1112.0",
+    "@aws-sdk/client-ses": "^3.1160.0",
     "@tailwindcss/vite": "^4.1.18",
     "@tanstack/react-devtools": "^0.10.13",
     "@tanstack/react-router": "^1.170.41",

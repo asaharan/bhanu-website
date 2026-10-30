@@ -132,10 +132,14 @@ export const createBooking = createServerFn({ method: 'POST' })
         .get()
     })
 
-    const { notifyDoctorOfBooking } = await import('./notify.server')
-    void notifyDoctorOfBooking(booking).catch((err) => {
-      console.error('Failed to send booking notification email', err)
-    })
+    // Await delivery to SES before ending the request, including on serverless
+    // hosts, but keep the saved booking successful if email fails.
+    try {
+      const { notifyDoctorOfBooking } = await import('./notify.server')
+      await notifyDoctorOfBooking(booking)
+    } catch (err) {
+      console.error(`Failed to send notification for booking ${booking.id}`, err)
+    }
 
     return booking
   })

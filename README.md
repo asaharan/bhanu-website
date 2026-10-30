@@ -17,6 +17,70 @@ To build this application for production:
 npm run build
 ```
 
+## Booking notifications with Amazon SES
+
+Every successfully saved registration attempts an SES email to `NOTIFICATION_EMAIL`
+from `FROM_EMAIL`, containing the booking ID, patient contact details, reason,
+category, and appointment date/time (Asia/Kolkata).
+
+Set these server environment variables (see `.env.example`):
+
+```dotenv
+AWS_REGION=ap-south-1
+AWS_ACCESS_KEY_ID=your-existing-iam-access-key
+AWS_SECRET_ACCESS_KEY=your-existing-iam-secret-key
+FROM_EMAIL=bookings@example.com
+NOTIFICATION_EMAIL=doctor@example.com
+```
+
+SES uses the AWS SDK default credential chain, just like S3; an attached IAM role
+or shared AWS profile also works. Temporary credentials also need `AWS_SESSION_TOKEN`.
+Use AWS API credentials, not SES SMTP credentials. Never prefix these variables with `VITE_`.
+
+In the SES console for `AWS_REGION`, verify `FROM_EMAIL` or its domain. If the
+account is in the SES sandbox, also verify `NOTIFICATION_EMAIL`, or request
+production access to send to unverified recipients. Verification and sandbox
+status are regional.
+
+Attach this additional IAM policy to the existing application user, keeping its
+existing S3 permissions. Replace `REGION`, `ACCOUNT_ID`, `VERIFIED_IDENTITY`, and
+the two example email addresses with actual values. `VERIFIED_IDENTITY` is the
+verified domain (e.g. `example.com`) or verified sender address (e.g.
+`bookings@example.com`). IAM does not substitute application environment variables.
+
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "SendBookingNotifications",
+      "Effect": "Allow",
+      "Action": "ses:SendEmail",
+      "Resource": "arn:aws:ses:REGION:ACCOUNT_ID:identity/VERIFIED_IDENTITY",
+      "Condition": {
+        "StringEquals": {
+          "ses:FromAddress": "bookings@example.com"
+        },
+        "ForAllValues:StringEquals": {
+          "ses:Recipients": ["doctor@example.com"]
+        }
+      }
+    }
+  ]
+}
+```
+
+The application uses `SendEmail`; it does not need `ses:SendRawEmail` or SES admin
+permissions. See [AWS SES IAM guidance](https://docs.aws.amazon.com/ses/latest/dg/control-user-access.html)
+and [SES sandbox requirements](https://docs.aws.amazon.com/ses/latest/dg/request-production-access.html).
+
+The send is awaited after the booking is persisted, outside the storage retry
+loop, with a 10-second send timeout. Missing configuration and SES failures are
+logged with the booking ID, and the saved booking still succeeds. There is no
+durable retry queue: this is a best-effort notification, not guaranteed delivery.
+After configuring AWS, submit a test booking and check the recipient inbox and
+server logs. SES acceptance does not guarantee inbox delivery.
+
 ## Styling
 
 This project uses [Tailwind CSS](https://tailwindcss.com/) for styling.

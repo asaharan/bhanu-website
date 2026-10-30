@@ -1,50 +1,49 @@
+import { SESClient, SendEmailCommand } from '@aws-sdk/client-ses'
 import type { Booking } from './db/schema'
 
-/**
- * Best-effort notification only. Called after a booking's S3 PUT has already
- * durably succeeded — never from inside the write/retry loop — so a failed
- * or slow email can never fail the booking itself or cause a duplicate send
- * on retry.
- */
+let sesClient: SESClient | undefined
+
+/** Called after persistence, outside the storage retry loop. */
 export async function notifyDoctorOfBooking(booking: Booking): Promise<void> {
-  const apiKey = process.env.RESEND_API_KEY
-  const to = process.env.NOTIFY_EMAIL_TO
+  const from = process.env.FROM_EMAIL?.trim()
+  const to = process.env.NOTIFICATION_EMAIL?.trim()
 
-  if (!apiKey || !to) {
-    console.log(
-      `[booking] New appointment: ${booking.patientName} on ${booking.appointmentDate} at ${booking.slotStart} ` +
-        `(set RESEND_API_KEY + NOTIFY_EMAIL_TO to email this instead)`,
+  if (!from || !to) {
+    throw new Error(
+      'Booking notifications require FROM_EMAIL and NOTIFICATION_EMAIL',
     )
-    return
   }
 
-  const res = await fetch('https://api.resend.com/emails', {
-    method: 'POST',
-    headers: {
-      Authorization: `Bearer ${apiKey}`,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      from:
-        process.env.NOTIFY_EMAIL_FROM ??
-        'Root Restore Bookings <bookings@rootrestore.in>',
-      to,
-      subject: `New booking: ${booking.patientName} — ${booking.appointmentDate} ${booking.slotStart}`,
-      text: [
-        `Patient: ${booking.patientName}`,
-        `Phone: ${booking.phone}`,
-        booking.email ? `Email: ${booking.email}` : null,
-        `Reason: ${booking.reason}`,
-        `Category: ${booking.conditionCategory}`,
-        `Date: ${booking.appointmentDate}`,
-        `Time: ${booking.slotStart} - ${booking.slotEnd}`,
-      ]
-        .filter(Boolean)
-        .join('\n'),
+  sesClient ??= new SESClient({ region: process.env.AWS_REGION })
+
+  await sesClient.send(
+    new SendEmailCommand({
+      Source: from,
+      Destination: { ToAddresses: [to] },
+      Message: {
+        Subject: {
+          Charset: 'UTF-8',
+          Data: `New booking #${booking.id}: ${booking.patientName.replace(/[\r\n]+/g, ' ')} — ${booking.appointmentDate} ${booking.slotStart}`,
+        },
+        Body: {
+          Text: {
+            Charset: 'UTF-8',
+            Data: [
+              `Booking ID: ${booking.id}`,
+              `Patient: ${booking.patientName}`,
+              `Phone: ${booking.phone}`,
+              booking.email ? `Email: ${booking.email}` : null,
+              `Reason: ${booking.reason}`,
+              `Category: ${booking.conditionCategory}`,
+              `Date: ${booking.appointmentDate}`,
+              `Time: ${booking.slotStart} - ${booking.slotEnd} (Asia/Kolkata)`,
+            ]
+              .filter(Boolean)
+              .join('\n'),
+          },
+        },
+      },
     }),
-  })
-
-  if (!res.ok) {
-    throw new Error(`Resend API error: ${res.status} ${await res.text()}`)
-  }
+    { abortSignal: AbortSignal.timeout(10_000) },
+  )
 }
