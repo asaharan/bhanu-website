@@ -1,6 +1,7 @@
 import { createFileRoute, redirect, useNavigate } from '@tanstack/react-router'
 import { getAdminSession, adminLogout } from '../server/auth'
 import { listBookings } from '../server/bookings'
+import { nowInClinicTimezone } from '../server/time'
 
 export const Route = createFileRoute('/admin/')({
   beforeLoad: async () => {
@@ -12,7 +13,10 @@ export const Route = createFileRoute('/admin/')({
 })
 
 function AdminBookings() {
-  const bookings = Route.useLoaderData()
+  const bookings = [...Route.useLoaderData()].sort(
+    (a, b) => b.createdAt.localeCompare(a.createdAt) || b.id - a.id,
+  )
+  const today = nowInClinicTimezone().date
   const navigate = useNavigate()
 
   async function handleLogout() {
@@ -57,7 +61,12 @@ function AdminBookings() {
             ) : (
               bookings.map((booking) => (
                 <tr key={booking.id} className="border-t border-primary/10">
-                  <td className="px-4 py-3">{booking.appointmentDate}</td>
+                  <td className="px-4 py-3">
+                    <AppointmentDate
+                      date={booking.appointmentDate}
+                      today={today}
+                    />
+                  </td>
                   <td className="px-4 py-3">{booking.slotStart}</td>
                   <td className="px-4 py-3">{booking.patientName}</td>
                   <td className="px-4 py-3">{booking.phone}</td>
@@ -83,5 +92,27 @@ function AdminBookings() {
         </table>
       </div>
     </div>
+  )
+}
+
+function AppointmentDate({ date, today }: { date: string; today: string }) {
+  const days = Math.round(
+    (Date.parse(`${date}T00:00:00Z`) - Date.parse(`${today}T00:00:00Z`)) /
+      86_400_000,
+  )
+  const label =
+    days === 0
+      ? 'Today'
+      : days === 1
+        ? 'Tomorrow'
+        : days === -1
+          ? 'Yesterday'
+          : null
+
+  return (
+    <>
+      {label && <span className="block font-medium">{label}</span>}
+      <span>{date}</span>
+    </>
   )
 }

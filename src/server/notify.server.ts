@@ -16,7 +16,7 @@ export async function notifyDoctorOfBooking(booking: Booking): Promise<void> {
 
   sesClient ??= new SESClient({ region: process.env.AWS_REGION })
 
-  await sesClient.send(
+  const result = await sesClient.send(
     new SendEmailCommand({
       Source: from,
       Destination: { ToAddresses: [to] },
@@ -46,4 +46,10 @@ export async function notifyDoctorOfBooking(booking: Booking): Promise<void> {
     }),
     { abortSignal: AbortSignal.timeout(10_000) },
   )
+
+  console.info('Booking notification accepted by SES', {
+    bookingId: booking.id,
+    messageId: result.MessageId,
+    region: process.env.AWS_REGION,
+  })
 }
