@@ -55,7 +55,7 @@ verified domain (e.g. `example.com`) or verified sender address (e.g.
     {
       "Sid": "SendBookingNotifications",
       "Effect": "Allow",
-      "Action": "ses:SendEmail",
+      "Action": "ses:SendRawEmail",
       "Resource": "arn:aws:ses:REGION:ACCOUNT_ID:identity/VERIFIED_IDENTITY",
       "Condition": {
         "StringEquals": {
@@ -70,7 +70,7 @@ verified domain (e.g. `example.com`) or verified sender address (e.g.
 }
 ```
 
-The application uses `SendEmail`; it does not need `ses:SendRawEmail` or SES admin
+The application uses `SendRawEmail` for calendar invitations; it does not need SES admin
 permissions. See [AWS SES IAM guidance](https://docs.aws.amazon.com/ses/latest/dg/control-user-access.html)
 and [SES sandbox requirements](https://docs.aws.amazon.com/ses/latest/dg/request-production-access.html).
 

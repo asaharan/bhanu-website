@@ -1,4 +1,5 @@
 import { createFileRoute, redirect, useNavigate } from '@tanstack/react-router'
+import { useRef, useState } from 'react'
 import { getAdminSession, adminLogout } from '../server/auth'
 import { listBookings } from '../server/bookings'
 import { nowInClinicTimezone } from '../server/time'
@@ -18,6 +19,11 @@ function AdminBookings() {
   )
   const today = nowInClinicTimezone().date
   const navigate = useNavigate()
+  const dialogRef = useRef<HTMLDialogElement>(null)
+  const [selectedMessage, setSelectedMessage] = useState<{
+    patientName: string
+    reason: string
+  } | null>(null)
 
   async function handleLogout() {
     await adminLogout()
@@ -44,6 +50,7 @@ function AdminBookings() {
               <th className="px-4 py-3">Patient</th>
               <th className="px-4 py-3">Phone</th>
               <th className="px-4 py-3">Category</th>
+              <th className="px-4 py-3">Message</th>
               <th className="px-4 py-3">Status</th>
               <th className="px-4 py-3">Payment</th>
             </tr>
@@ -52,7 +59,7 @@ function AdminBookings() {
             {bookings.length === 0 ? (
               <tr>
                 <td
-                  colSpan={7}
+                  colSpan={8}
                   className="px-4 py-6 text-center text-primary-dark/50"
                 >
                   No bookings yet.
@@ -71,6 +78,21 @@ function AdminBookings() {
                   <td className="px-4 py-3">{booking.patientName}</td>
                   <td className="px-4 py-3">{booking.phone}</td>
                   <td className="px-4 py-3">{booking.conditionCategory}</td>
+                  <td className="px-4 py-3">
+                    <button
+                      type="button"
+                      className="block max-w-48 truncate text-left text-primary underline underline-offset-2 hover:text-primary-dark"
+                      onClick={() => {
+                        setSelectedMessage({
+                          patientName: booking.patientName,
+                          reason: booking.reason,
+                        })
+                        dialogRef.current?.showModal()
+                      }}
+                    >
+                      {booking.reason}
+                    </button>
+                  </td>
                   <td className="px-4 py-3">{booking.status}</td>
                   <td className="px-4 py-3">
                     <span
@@ -91,6 +113,29 @@ function AdminBookings() {
           </tbody>
         </table>
       </div>
+
+      <dialog
+        ref={dialogRef}
+        aria-labelledby="message-title"
+        className="m-auto w-[min(90vw,32rem)] rounded-xl bg-white p-6 text-primary-dark shadow-xl backdrop:bg-black/50"
+        onClose={() => setSelectedMessage(null)}
+      >
+        <div className="flex items-start justify-between gap-4">
+          <h2 id="message-title" className="font-display text-xl font-semibold">
+            Message from {selectedMessage?.patientName}
+          </h2>
+          <button
+            type="button"
+            onClick={() => dialogRef.current?.close()}
+            className="btn-secondary"
+          >
+            Close
+          </button>
+        </div>
+        <p className="mt-4 whitespace-pre-wrap break-words">
+          {selectedMessage?.reason}
+        </p>
+      </dialog>
     </div>
   )
 }
